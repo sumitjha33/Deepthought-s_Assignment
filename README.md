@@ -2,28 +2,32 @@ Gemini Multi-Agent AI System
 Overview
 This repository implements a modular multi-agent AI system powered by Google Gemini. The system features a manager agent (brain_ai.py) that intelligently routes user requests to specialized agents for study planning, mindfulness prompts, and video idea brainstorming. Each agent uses a robust 4-layer architecture for input understanding, state tracking, task planning, and output generation.
 
-Architecture & Workflow
-System Diagram
-text
-+---------+        +------------------+
-|  User   | -----> |   brain_ai.py    | (Manager/Router)
-+---------+        +------------------+
-                          |
-        +-----------------+-----------------+
-        |                 |                 |
-+----------------+ +----------------+ +----------------+
-| study_planner  | | mindfulness    | | video_idea     |
-| _agent.py      | | _agent.py      | | _agent.py      |
-+----------------+ +----------------+ +----------------+
-User interacts with the system via a single entry point (brain_ai.py).
+Features
+Unified interface: One entry point for all user requests.
 
-brain_ai.py analyzes the request and routes it to the correct specialized agent.
+Intelligent routing: Manager agent analyzes intent and delegates to the right specialist.
+
+Extensible: Add new agents easily.
+
+Gemini-powered: Uses Google Gemini for all natural language understanding and generation.
+
+Architecture & Workflow
+text
+User
+  |
+brain_ai.py (Manager Agent)
+  |--- study_planner_agent.py
+  |--- mindfulness_agent.py
+  |--- video_idea_agent.py
+User interacts with the system via brain_ai.py.
+
+brain_ai.py analyzes the request and routes it to the correct agent.
 
 Specialized agents process the request and return a formatted response.
 
-Agents Explained
-1. Study Planner Agent (study_planner_agent.py)
-Purpose: Generates personalized, chapter-wise study revision plans for students.
+Agents
+Study Planner Agent (study_planner_agent.py)
+Purpose: Generates personalized, chapter-wise study revision plans.
 
 Workflow:
 
@@ -35,8 +39,8 @@ Task Planner: Designs a step-by-step study plan.
 
 Output Generator: Formats the plan in Markdown with motivational tips.
 
-2. Mindfulness Prompter Agent (mindfulness_agent.py)
-Purpose: Delivers daily, actionable mindfulness prompts tailored to user mood or preference.
+Mindfulness Prompter Agent (mindfulness_agent.py)
+Purpose: Delivers daily, actionable mindfulness prompts tailored to mood or preference.
 
 Workflow:
 
@@ -48,8 +52,8 @@ Task Planner: Crafts a relevant mindfulness prompt.
 
 Output Generator: Presents the prompt with a motivational message.
 
-3. Video Idea Brainstorm Agent (video_idea_agent.py)
-Purpose: Suggests creative, catchy short video ideas for creators, customized by topic, style, and platform.
+Video Idea Brainstorm Agent (video_idea_agent.py)
+Purpose: Suggests creative, catchy short video ideas for creators.
 
 Workflow:
 
@@ -61,7 +65,7 @@ Task Planner: Generates 3 video ideas with hooks and titles.
 
 Output Generator: Formats ideas in Markdown for easy reading.
 
-4. Manager Agent (brain_ai.py)
+Manager Agent (brain_ai.py)
 Purpose: Serves as the system’s entry point and router.
 
 Workflow:
@@ -84,18 +88,18 @@ text
 Setup Instructions
 Clone the repository:
 
-bash
+text
 git clone https://github.com/yourusername/gemini-multi-agent-ai.git
 cd gemini-multi-agent-ai
 Create and activate a Python virtual environment:
 
-bash
+text
 python -m venv venv
 source venv/bin/activate  # (Linux/Mac)
 venv\Scripts\activate     # (Windows)
 Install dependencies:
 
-bash
+text
 pip install google-generativeai python-dotenv
 Add your Gemini API key to a .env file:
 
@@ -103,24 +107,36 @@ text
 GEMINI_API_KEY=your_api_key_here
 Never share your API key publicly or include it in submissions.
 
-How to Run
+Usage
 Main Entry Point:
 Run the manager agent to access all features:
 
-bash
+text
 python brain_ai.py
 Example requests:
 
-“Help me make a 7-day study plan for my math exam.”
+"Help me make a 7-day study plan for my math exam."
 
-“I feel stressed, give me a mindfulness prompt.”
+"I feel stressed, give me a mindfulness prompt."
 
-“Brainstorm funny video ideas about AI for YouTube Shorts.”
+"Brainstorm funny video ideas about AI for YouTube Shorts."
 
 Run Individual Agents:
 You can also run any agent directly:
 
-bash
+text
 python study_planner_agent.py
 python mindfulness_agent.py
 python video_idea_agent.py
+Customization
+Add new agents by creating additional modules and updating the intent classifier in brain_ai.py.
+
+Enhance with logging, session memory, or advanced orchestration as needed.
+
+Sample Outputs
+Sample outputs for each agent are included in the approach document and output logs.
+
+Troubleshooting
+Ensure your .env file is present and contains a valid Gemini API key.
+
+If you encounter errors, check that all dependencies are installed and that your Python version is 3.8+.
